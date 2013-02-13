@@ -8,6 +8,10 @@
     "type":       "MIT",
     "url":        "http://github.com/github/hubot/raw/master/LICENSE"
   }],
+  "engines":      {
+    "npm":          "1.2.10",
+    "node":         "0.8.19"
+  },
 
   "repository" : {
     "type" : "git",
