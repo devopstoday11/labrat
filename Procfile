@@ -1,1 +1,1 @@
-web: bin/hubot -a campfire -n Labrat
+web: bin/hubot -a gtalk -n Labrat
