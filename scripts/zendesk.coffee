@@ -19,12 +19,13 @@
 
 sys = require 'sys' # Used for debugging
 
-potatoheads = ["jeroen", "vincent", "paul", "andrew", "martin", "ravan", "hes", "ric", "jasper", "mike"]
-potatohead = Math.floor(Math.random() * potatoheads.length)
 zendesk_user = "#{process.env.HUBOT_ZENDESK_USER}"
 zendesk_password = "#{process.env.HUBOT_ZENDESK_PASSWORD}"
 auth = new Buffer("#{zendesk_user}:#{zendesk_password}").toString('base64')
 zendesk_url = "https://#{process.env.HUBOT_ZENDESK_SUBDOMAIN}.zendesk.com/api/v2"
+
+potatoheads = ["jeroen", "vincent", "paul", "andrew", "martin", "ravan", "hes", "ric", "jasper", "mike"]
+potatohead = Math.floor(Math.random() * potatoheads.length)
 
 console.log potatoheads[potatohead] + " is next"
 
@@ -34,6 +35,8 @@ queries =
   new: "search.json?query=\"status:new type:ticket\""
   tickets: "tickets"
   users: "users"
+
+next_potato = -> potatoheads[potatohead++]
 
 potato_update = (the_potato) -> ticket:{custom_fields:[{id: 22270006, value: "#{the_potato}"}],fields:[{id: 22270006, value: "#{the_potato}"}]}
 
@@ -122,4 +125,12 @@ module.exports = (robot) ->
     the_potato = msg.match[2]
     message = potato_update the_potato
     zendesk_put msg, "#{queries.tickets}/#{ticket_id}.json", message, (result) ->
-      msg.send "#{result.ticket.id} successfully assigned to #{the_potato}"
+      msg.send "*#{result.ticket.id}* successfully assigned to *#{the_potato}*"
+
+  robot.respond /potato ticket ([\d]+)$/, (msg) ->
+    ticket_id = msg.match[1]
+    the_potato = next_potato()
+    message = potato_update the_potato
+    console.log "Next potato = #{potatoheads[potatohead]}"
+    zendesk_put msg, "#{queries.tickets}/#{ticket_id}.json", message, (result) ->
+      msg.send "*#{result.ticket.id}* successfully assigned to *#{the_potato}*"
