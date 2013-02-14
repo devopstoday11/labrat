@@ -16,6 +16,9 @@
 #   list new tickets - returns a list of all new tickets
 #   list open tickets - returns a list of all open tickets
 #   ticket <ID> - returns informationa about the specified ticket
+#   potato ticket <ID> - Assigns the next potato the specified ticket
+#   assign ticket <ID> to <ASSIGNEE> - Assign the specified ticket to the specified person
+
 
 sys = require 'sys' # Used for debugging
 
@@ -131,6 +134,8 @@ module.exports = (robot) ->
     ticket_id = msg.match[1]
     the_potato = next_potato()
     message = potato_update the_potato
-    console.log "Next potato = #{potatoheads[potatohead]}"
     zendesk_put msg, "#{queries.tickets}/#{ticket_id}.json", message, (result) ->
       msg.send "*#{result.ticket.id}* successfully assigned to *#{the_potato}*"
+
+  robot.respond /who is the potato$/, (msg) ->
+    msg.send "The current potato is: *#{potatoheads[potatohead]}*"
