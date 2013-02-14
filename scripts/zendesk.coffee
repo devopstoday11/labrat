@@ -35,15 +35,27 @@ queries =
   tickets: "tickets"
   users: "users"
 
+potato_update = (the_potato) -> ticket:{custom_fields:[{id: 22270006, value: "#{the_potato}"}],fields:[{id: 22270006, value: "#{the_potato}"}]}
+
+zendesk_put = (msg, url, data, handler) ->
+  msg.http("#{zendesk_url}/#{url}")
+    .headers(Authorization: "Basic #{auth}", Accept: "application/json", "Content-Type": "application/json")
+    .put(JSON.stringify(data)) (err, res, body) ->
+      if err
+        msg.send "zendesk says: #{err}"
+        return
+      content = JSON.parse(body)
+      handler content
+
 zendesk_request = (msg, url, handler) ->
   msg.http("#{zendesk_url}/#{url}")
     .headers(Authorization: "Basic #{auth}", Accept: "application/json")
-      .get() (err, res, body) ->
-        if err
-          msg.send "zendesk says: #{err}"
-          return
-        content = JSON.parse(body)
-        handler content
+    .get() (err, res, body) ->
+      if err
+        msg.send "zendesk says: #{err}"
+        return
+      content = JSON.parse(body)
+      handler content
 
 # FIXME this works about as well as a brick floats
 zendesk_user = (msg, user_id) ->
@@ -108,14 +120,6 @@ module.exports = (robot) ->
   robot.respond /assign ticket ([\d]+) to ([a-z]+)$/, (msg) ->
     ticket_id = msg.match[1]
     the_potato = msg.match[2]
-    message = ticket:{custom_fields:[{id: 22270006, value: "#{the_potato}"}],fields:[{id: 22270006, value: "#{the_potato}"}]}
-    console.log JSON.stringify(message)
-    msg.http("#{zendesk_url}/#{queries.tickets}/#{ticket_id}.json")
-      .headers(Authorization: "Basic #{auth}", Accept: "application/json")
-      .put(JSON.stringify(message)) (err, res, body) ->
-        if err
-          msg.send "zendesk says: #{err}"
-          return
-        content = JSON.parse(body)
-        console.log "Received #{body}"
-        msg.send "#{content.ticket.id} successfully assigned to #{the_potato}"
+    message = potato_update the_potato
+    zendesk_put msg, "#{queries.tickets}/#{ticket_id}.json", message, (result) ->
+      msg.send "#{result.ticket.id} successfully assigned to #{the_potato}"
