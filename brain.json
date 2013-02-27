@@ -1,0 +1,83 @@
+{
+  "users": {
+    "247597": {
+      "id": "247597",
+      "jid": "35753_247597@chat.hipchat.com",
+      "name": "Jeroen van Erp",
+      "mention_name": "JeroenvanErp"
+    },
+    "247605": {
+      "id": "247605",
+      "jid": "35753_247605@chat.hipchat.com",
+      "name": "Lab Rat",
+      "mention_name": "LabRat"
+    },
+    "247649": {
+      "id": "247649",
+      "jid": "35753_247649@chat.hipchat.com",
+      "name": "Paul van der Ende",
+      "mention_name": "PaulvanderEnde"
+    },
+    "248342": {
+      "id": "248342",
+      "jid": "35753_248342@chat.hipchat.com",
+      "name": "Mike Kotsur",
+      "mention_name": "MikeKotsur"
+    },
+    "248331": {
+      "id": "248331",
+      "jid": "35753_248331@chat.hipchat.com",
+      "name": "Jasper Stein",
+      "mention_name": "JasperStein"
+    }
+    "248344": {
+      "id": "248344",
+      "jid": "35753_248344@chat.hipchat.com",
+      "name": "Ric Klaren",
+      "mention_name": "RicKlaren"
+    }
+  },
+  "potatoes": {
+    "vincent": {
+      "name": "vincent",
+      "user_id": "0"
+    },
+    "jeroen": {
+      "name": "jeroen",
+      "user_id": "247597"
+    },
+    "ravan": {
+      "name": "ravan",
+      "user_id": "0"
+    },
+    "hes": {
+      "name": "hes",
+      "user_id": "0"
+    },
+    "andrew": {
+      "name": "andrew",
+      "user_id": "1"
+    },
+    "mike": {
+      "name": "mike",
+      "user_id": "248342"
+    },
+    "paul": {
+      "name": "paul",
+      "user_id": "247649"
+    },
+    "martin": {
+      "name": "martin",
+      "user_id": "0"
+    },
+    "jasper": {
+      "name": "jasper",
+      "user_id": "248331"
+    },
+    "ric": {
+      "name": "ric",
+      "user_id": "248344"
+    }
+  },
+  "last_potato": "ric"
+}

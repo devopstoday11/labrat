@@ -33,14 +33,12 @@ potatoheads = null
 potatohead = null
 
 init = ->
-  console.log "Called init"
   if (!potatoheads)
     potatoheads = the_robot.brain.data.potatoes
     available_potatoes = (name for own name, potato of potatoheads)
     console.log "Potatoes: #{available_potatoes}"
     potatohead = the_robot.brain.data.last_potato
     console.log potatoheads[potatohead].name + " is next"
-  console.log "init done."
 
 queries =
   unsolved: "search.json?query=\"status<solved type:ticket\""
@@ -178,3 +176,8 @@ module.exports = (robot) ->
     init()
     the_potato = next_potato()
     msg.send "The current potato is: #{potatoheads[potatohead].name}"
+
+  robot.respond /set potato to ([a-z]+)/i, (msg) ->
+    init()
+    potatohead = msg.match[1]
+    msg.send "The potato is set to #{potatoheads[potatohead].name}"
