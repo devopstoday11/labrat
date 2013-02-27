@@ -126,7 +126,7 @@ module.exports = (robot) ->
       message = ""
       for result in results.results
         potato = find_potato result
-        message += "<b>#{result.id}</b> is #{result.status} (assigned to <b>#{potato}</b>): #{result.subject}\n"
+        message += "#{result.id} is #{result.status} (assigned to #{potato}): #{result.subject}\n"
       msg.send message
 
   robot.respond /list new tickets$/i, (msg) ->
@@ -138,7 +138,7 @@ module.exports = (robot) ->
     zendesk_request msg, queries.open, (results) ->
       for result in results.results
         potato = find_potato result
-        msg.send "<b>#{result.id}<b> is #{result.status} (assigned to <b>#{potato}</b>): #{result.subject}"
+        msg.send "#{result.id} is #{result.status} (assigned to #{potato}): #{result.subject}"
 
   robot.respond /ticket ([\d]+)$/i, (msg) ->
     ticket_id = msg.match[1]
@@ -158,7 +158,7 @@ module.exports = (robot) ->
     the_potato = potatoheads[msg.match[2]]
     message = potato_update the_potato
     zendesk_put msg, "#{queries.tickets}/#{ticket_id}.json", message, (result) ->
-      msg.send "*#{result.ticket.id}* successfully assigned to *#{the_potato.name}*"
+      msg.send "#{result.ticket.id} successfully assigned to #{the_potato.name}"
 
   robot.respond /potato ticket ([\d]+)$/i, (msg) ->
     ticket_id = msg.match[1]
@@ -166,7 +166,7 @@ module.exports = (robot) ->
     the_potato = next_potato()
     message = potato_update the_potato
     zendesk_put msg, "#{queries.tickets}/#{ticket_id}.json", message, (result) ->
-      msg.send "*#{result.ticket.id}* successfully assigned to *#{the_potato.name}*"
+      msg.send "#{result.ticket.id} successfully assigned to #{the_potato.name}"
 
   robot.respond /who is the potato$/i, (msg) ->
     console.log "Listing potato"
@@ -175,7 +175,7 @@ module.exports = (robot) ->
 
   robot.respond /next potato$/i, (msg) ->
     init()
-    the_potato = next_potato()
+    next_potato()
     msg.send "The current potato is: #{potatoheads[potatohead].name}"
 
   robot.respond /set potato to ([a-z]+)/i, (msg) ->
