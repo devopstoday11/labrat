@@ -126,7 +126,7 @@ module.exports = (robot) ->
       message = ""
       for result in results.results
         potato = find_potato result
-        message += "*#{result.id}* is #{result.status} (assigned to *#{potato}*): #{result.subject}\n"
+        message += "<b>#{result.id}</b> is #{result.status} (assigned to <b>#{potato}</b>): #{result.subject}\n"
       msg.send message
 
   robot.respond /list new tickets$/i, (msg) ->
@@ -137,7 +137,8 @@ module.exports = (robot) ->
   robot.respond /list open tickets$/i, (msg) ->
     zendesk_request msg, queries.open, (results) ->
       for result in results.results
-        msg.send "#{result.id} is #{result.status}: #{result.subject}"
+        potato = find_potato result
+        msg.send "<b>#{result.id}<b> is #{result.status} (assigned to <b>#{potato}</b>): #{result.subject}"
 
   robot.respond /ticket ([\d]+)$/i, (msg) ->
     ticket_id = msg.match[1]
