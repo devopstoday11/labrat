@@ -96,6 +96,7 @@ poll = (msg) ->
   init()
   zendesk_request the_robot, queries.unpotatoed, (results) ->
     for result in results.results
+      ticket_id = result.id
       the_potato = next_potato()
       message = potato_update the_potato
       zendesk_put the_robot, "#{queries.tickets}/#{ticket_id}.json", message, (result) ->
