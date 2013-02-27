@@ -1,1 +1,1 @@
-web: bin/hubot -a gtalk -n Labrat
+web: bin/hubot -a hipchat -n Labrat

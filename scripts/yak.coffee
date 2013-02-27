@@ -9,5 +9,5 @@
 
 module.exports = (robot) ->
 
-	robot.respond /shave\s*[a]\s*yak$/i, (msg) ->
-		msg.send "A hairy yak is a happy yak..."
+  robot.respond /shave\s*[a]?\s*yak$/i, (msg) ->
+    msg.send "A hairy yak is a happy yak..."
