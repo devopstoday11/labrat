@@ -24,6 +24,7 @@ zendesk_user = "#{process.env.HUBOT_ZENDESK_USER}"
 zendesk_password = "#{process.env.HUBOT_ZENDESK_PASSWORD}"
 auth = new Buffer("#{zendesk_user}:#{zendesk_password}").toString('base64')
 zendesk_url = "https://#{process.env.HUBOT_ZENDESK_SUBDOMAIN}.zendesk.com/api/v2"
+ticket_announce_room = "#{process.env.HUBOT_ZENDESK_ANNOUNCE}"
 
 the_robot = null
 
@@ -98,8 +99,8 @@ poll = (msg) ->
       the_potato = next_potato()
       message = potato_update the_potato
       zendesk_put the_robot, "#{queries.tickets}/#{ticket_id}.json", message, (result) ->
-        the_robot.messageRoom "35753_labrats@conf.hipchat.com", "#{the_potato.name} got assigned Hot Potato nr. #{result.id}"
-        the_robot.messageRoom "35753_labrats@conf.hipchat.com", "Next one to get a potato is: #{potatoheads[potatohead].name}"
+        the_robot.messageRoom ticket_announce_room, "#{the_potato.name} got assigned Hot Potato nr. #{result.id}"
+        the_robot.messageRoom ticket_announce_room, "Next one to get a potato is: #{potatoheads[potatohead].name}"
 
 module.exports = (robot) ->
   the_robot = robot
